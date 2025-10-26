@@ -44,7 +44,7 @@ Copy code
 
 1. Clone the repo:
 
-```bash
+'bash
 git clone https://github.com/yourusername/nodejs-demo-app.git
 cd nodejs-demo-app
 Install dependencies:
