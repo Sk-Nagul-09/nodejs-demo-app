@@ -5,7 +5,7 @@ on:
   push:
     branches: [ "main" ]
 
-# Environment variable for Docker image
+# Docker image name
 env:
   IMAGE_NAME: your-dockerhub-username/nodejs-demo-app
 
@@ -13,8 +13,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      # Checkout repo
-      - name: Checkout code
+      # Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       # Set up Node.js
@@ -35,14 +35,15 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      # Checkout repo again
-      - name: Checkout code
+      # Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Set up Docker Buildx
+      # Set up QEMU (for multi-platform support)
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
+      # Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -54,8 +55,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # Build and push Docker image
-      - name: Build and Push Image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         with:
           context: .
-
+          push: true
+          tags: ${{ env.IMAGE_NAME }}:${{ github.sha }},${{ env.IMAGE_NAME }}:latest
