@@ -7,7 +7,7 @@ on:
 
 # Docker image name
 env:
-  IMAGE_NAME: your-dockerhub-username/nodejs-demo-app
+  IMAGE_NAME: nagul09/nodejs-demo-app
 
 jobs:
   test:
